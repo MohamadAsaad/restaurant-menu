@@ -1,0 +1,182 @@
+{
+    "restaurant_name": "مطعم الصحي الجديد",
+    "description": "تجربة طعام استثنائية بأرقى المكونات وأشهى النكهات",
+    "sections": [
+        {
+            "id": 2,
+            "name": "الأطباق الرئيسية",
+            "items": [
+                {
+                    "id": 201,
+                    "name": "ستيك لحم",
+                    "description": "قطعة ستيك لحم بقري 250 جرام مع صلصة الفطر والبطاطس المشوية",
+                    "price": 95,
+                    "image": "assets/images/steak.jpg"
+                },
+                {
+                    "id": 202,
+                    "name": "سمك مشوي",
+                    "description": "سمك هامور طازج مشوي مع صلصة الليمون والأعشاب",
+                    "price": 85,
+                    "image": "assets/images/grilled-fish.jpg"
+                },
+                {
+                    "id": 203,
+                    "name": "معكرونة ألفريدو",
+                    "description": "معكرونة مع صلصة الكريمة والجبنة والثوم",
+                    "price": 45,
+                    "image": "assets/images/alfredo-pasta.jpg"
+                },
+                {
+                    "id": 204,
+                    "name": "مكبوس دجاج",
+                    "description": "أرز بخاري مع دجاج متبل وخضار مشوية",
+                    "price": 55,
+                    "image": "assets/images/makbus.jpg"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "المشروبات",
+            "items": [
+                {
+                    "id": 301,
+                    "name": "عصير برتقال طازج",
+                    "description": "عصير برتقال طازج مع قطع البرتقال",
+                    "price": 18,
+                    "image": "assets/images/orange-juice.jpg"
+                },
+                {
+                    "id": 302,
+                    "name": "ليمون بالنعناع",
+                    "description": "عصير ليمون طازج مع أوراق النعناع",
+                    "price": 15,
+                    "image": "assets/images/lemon-mint.jpg"
+                },
+                {
+                    "id": 303,
+                    "name": "قهوة عربية",
+                    "description": "قهوة عربية أصيلة مع الهيل",
+                    "price": 12,
+                    "image": "assets/images/arabic-coffee.jpg"
+                },
+                {
+                    "id": 304,
+                    "name": "مشروب المانجو",
+                    "description": "عصير مانجو طازج مع قطع المانجو",
+                    "price": 20,
+                    "image": "assets/images/mango-juice.jpg"
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "name": "المقبلات",
+            "items": [
+                {
+                    "id": 101,
+                    "name": "سلطة يونانية",
+                    "description": "خيار، طماطم، بصل أحمر، زيتون، جبنة فيتا، زيت زيتون",
+                    "price": 28,
+                    "image": "assets/images/greek-salad.jpg"
+                },
+                {
+                    "id": 102,
+                    "name": "متبل الباذنجان",
+                    "description": "باذنجان مشوي مع الطحينة والثوم وعصير الليمون",
+                    "price": 22,
+                    "image": "assets/images/baba-ghanoush.jpg"
+                },
+                {
+                    "id": 103,
+                    "name": "سبرنغ رول",
+                    "description": "ورق رفيعة محشوة بالخضار والجمبري مع صلصة الصويا",
+                    "price": 32,
+                    "image": "assets/images/spring-roll.jpg"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "الحلويات",
+            "items": [
+                {
+                    "id": 401,
+                    "name": "تشيز كيك",
+                    "description": "تشيز كيك كلاسيكي مع طبقة من التوت الطازج",
+                    "price": 30,
+                    "image": "assets/images/cheesecake.jpg"
+                },
+                {
+                    "id": 402,
+                    "name": "كنافة بالنوتيلا",
+                    "description": "كنافة مقرمشة محشوة بالنوتيلا والجبنة الكريمية",
+                    "price": 35,
+                    "image": "assets/images/kunafa.jpg"
+                },
+                {
+                    "id": 403,
+                    "name": "مousse الشوكولاتة",
+                    "description": "موس الشوكولاتة الداكنة مع كريمة مخفوقة",
+                    "price": 28,
+                    "image": "assets/images/chocolate-mousse.jpg"
+                },
+                {
+                    "id": 404,
+                    "name": "أم علي",
+                    "description": "خبز محمص مع الحليب والمكسرات والقشطة",
+                    "price": 25,
+                    "image": "assets/images/um-ali.jpg"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "وجبات الأطفال",
+            "items": [
+                {
+                    "id": 501,
+                    "name": "ناجتس الدجاج",
+                    "description": "قطع دجاج مقرمشة مع صلصة الباربكيو",
+                    "price": 35,
+                    "image": "assets/images/chicken-nuggets.jpg"
+                },
+                {
+                    "id": 502,
+                    "name": "بطاطس مقلية",
+                    "description": "بطاطس مقلية مقرمشة مع صلصة الكاتشب",
+                    "price": 20,
+                    "image": "assets/images/french-fries.jpg"
+                },
+                {
+                    "id": 503,
+                    "name": "ساندويتش جبنة",
+                    "description": "ساندويتش جبنة مشوي مع الخضار",
+                    "price": 25,
+                    "image": "assets/images/grilled-cheese.jpg"
+                }
+            ]
+        },
+        {
+            "id": 1750504308401,
+            "name": "سندويش",
+            "items": [
+                {
+                    "name": "شاورما",
+                    "description": "شاورماشاورما",
+                    "price": 100,
+                    "image": "assets/images/shawarma.jpg",
+                    "id": 1750504338009
+                },
+                {
+                    "name": "كريسبي",
+                    "description": "كريسبي دجاج",
+                    "price": 150,
+                    "image": "",
+                    "id": 1750536342959
+                }
+            ]
+        }
+    ]
+}

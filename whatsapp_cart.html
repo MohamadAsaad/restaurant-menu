@@ -1,0 +1,198 @@
+<!-- HTML: صفحة الطلب المحسّنة -->
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <title>قائمة الطعام</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .menu-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            background: #fff;
+        }
+
+        .menu-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+        <h2 class="text-center mb-4" id="restaurant-name"></h2>
+        <p class="text-center mb-5" id="restaurant-description"></p>
+
+        <div id="category-filter" class="text-center mb-4"></div>
+
+        <div class="row g-4" id="menu-container"></div>
+
+        <!-- زر السلة -->
+        <button class="btn btn-success cart-btn" onclick="openCart()">
+            <i class="fas fa-shopping-cart"></i> السلة (<span id="cart-count">0</span>)
+        </button>
+    </div>
+
+    <!-- نافذة السلة -->
+    <div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">سلة الطلب</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="cart-items"></div>
+                <div class="modal-footer">
+                    <input type="text" class="form-control me-2" id="order-note" placeholder="ملاحظات إضافية (اختياري)">
+                    <button class="btn btn-primary" onclick="confirmOrder()">إرسال عبر واتساب</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تأكيد -->
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تأكيد الإرسال</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">هل أنت متأكد من إرسال الطلب عبر واتساب؟</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button class="btn btn-success" onclick="sendOrder()">نعم، أرسل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let cart = [];
+        const whatsappPhone = "+905516304088"; // ← رقم واتساب بدون +
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const stored = localStorage.getItem('cart');
+            if (stored) cart = JSON.parse(stored);
+            updateCartCount();
+
+            fetch('data/menu.json')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('restaurant-name').textContent = data.restaurant_name;
+                    document.getElementById('restaurant-description').textContent = data.description;
+                    renderFilterButtons(data.sections);
+                    renderMenu(data.sections);
+                });
+        });
+
+        function renderFilterButtons(sections) {
+            const container = document.getElementById('category-filter');
+            container.innerHTML = `<button class="btn btn-outline-primary filter-btn active" data-filter="all">الكل</button>`;
+            sections.forEach(section => {
+                container.innerHTML += `<button class="btn btn-outline-primary filter-btn" data-filter="${section.id}">${section.name}</button>`;
+            });
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterMenuItems(this.getAttribute('data-filter'));
+                });
+            });
+        }
+
+        function renderMenu(sections) {
+            const container = document.getElementById('menu-container');
+            container.innerHTML = '';
+            sections.forEach(section => {
+                section.items.forEach(item => {
+                    const html = `
+                        <div class="col-md-4 menu-item" data-category="${section.id}">
+                            <div class="menu-card">
+                                <img src="${item.image}" alt="${item.name}" class="menu-img">
+                                <h5 class="mt-3">${item.name}</h5>
+                                <p>${item.description}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>${item.price} ر.س</span>
+                                    <button class="btn btn-sm btn-success" onclick='addToCart(${JSON.stringify(item)})'>أضف</button>
+                                </div>
+                            </div>
+                        </div>`;
+                    container.innerHTML += html;
+                });
+            });
+        }
+
+        function filterMenuItems(filter) {
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.style.display = (filter === 'all' || item.getAttribute('data-category') === filter) ? 'block' : 'none';
+            });
+        }
+
+        function addToCart(item) {
+            let existing = cart.find(i => i.id === item.id);
+            if (existing) existing.qty += 1;
+            else cart.push({ ...item, qty: 1 });
+            updateCartCount();
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = cart.reduce((sum, i) => sum + i.qty, 0);
+        }
+
+        function openCart() {
+            const modal = new bootstrap.Modal(document.getElementById('cartModal'));
+            const container = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                container.innerHTML = '<p class="text-center text-danger">السلة فارغة.</p>';
+            } else {
+                container.innerHTML = '<ul class="list-group mb-3">' + cart.map(item =>
+                    `<li class="list-group-item d-flex justify-content-between align-items-center">
+                        ${item.name} × ${item.qty}
+                        <span>${item.qty * item.price} ر.س</span>
+                    </li>`).join('') + '</ul>';
+                const total = cart.reduce((sum, i) => sum + (i.qty * i.price), 0);
+                container.innerHTML += `<p class="text-end fw-bold">الإجمالي: ${total} ر.س</p>`;
+            }
+            modal.show();
+        }
+
+        function confirmOrder() {
+            if (cart.length === 0) {
+                openCart();
+                return;
+            }
+            const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+            confirmModal.show();
+        }
+
+        function sendOrder() {
+            const note = document.getElementById('order-note').value;
+            const msg = cart.map(i => `• ${i.name} × ${i.qty} = ${i.qty * i.price} ر.س`).join('\n');
+            const total = cart.reduce((sum, i) => sum + (i.qty * i.price), 0);
+            const itemsCount = cart.reduce((sum, i) => sum + i.qty, 0);
+            const fullMsg = `🧾 طلب جديد:\n${msg}\n\n🛒 العناصر: ${itemsCount}\n📦 الإجمالي: ${total} ر.س\n💬 ملاحظات: ${note || 'لا توجد'}\n💵 الدفع: عند الاستلام`;
+            const url = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(fullMsg)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+
+</html>

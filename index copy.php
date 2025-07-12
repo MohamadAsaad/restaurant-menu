@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة طعام مطعم النخبة </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <!-- شريط التنقل المحدث -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="assets/images/logo.png" alt="شعار المطعم" height="40" class="logo-img">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#menu">قائمة الطعام</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">عن المطعم</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">اتصل بنا</a>
+                    </li>
+                </ul>
+                <div class="d-flex ms-3">
+                    <li class="nav-item" style="color: #fffeff8c;list-style: none;">
+                        <a class="nav-link cart-btn" href="#" onclick="openCart()">
+                            <i class="fas fa-shopping-cart"></i> السلة (<span id="cart-count">0</span>)
+                        </a>
+                    </li>
+                    <li class="nav-item" style="color: #fffeff8c;list-style: none; margin-right: 10px;">
+                        <a class="nav-link" href="admin/admin.php">
+                            <i class="fas fa-user-cog"></i> لوحة التحكم
+                        </a>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- قسم الهيرو المحدث -->
+    <header class="hero-section" id="home">
+        <div class="hero-overlay"></div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-8 text-white animate__animated animate__fadeInUp">
+                    <h1 class="display-3 fw-bold mb-4" id="restaurant-name">مطعم النخبة الذهبية</h1>
+                    <p class="lead mb-5" id="restaurant-description">تجربة طعام استثنائية بأرقى المكونات وأشهى النكهات</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#menu" class="btn btn-primary btn-lg px-4">تصفح القائمة</a>
+                        <a href="#" class="btn btn-outline-light btn-lg px-4">اطلب الآن</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- قسم قائمة الطعام المحدث -->
+    <section class="py-5 menu-section" id="menu">
+        <div class="container">
+            <div class="text-center mb-5 animate__animated animate__fadeIn">
+                <h2 class="section-title">قائمة الطعام</h2>
+                <p class="section-subtitle">استمتع بأشهى الأطباق المعدة بعناية</p>
+            </div>
+
+            <!-- فلترة الأقسام المحدثة -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="category-filter text-center mb-4" id="category-filter"></div>
+                </div>
+            </div>
+
+            <!-- عرض الأصناف المحدث -->
+            <div class="row g-4" id="menu-container">
+                <!-- سيتم ملؤه بواسطة JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الدعوة للطلب المحدث -->
+    <section class="cta-section py-5 text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mb-4 mb-lg-0">
+                    <h3 class="mb-3 animate__animated animate__fadeInLeft">جاهزون لتوصيل طلبك!</h3>
+                    <p class="mb-0 animate__animated animate__fadeInLeft animate__delay-1s">اطلب الآن واحصل على خصم 10% على أول طلب عبر التطبيق</p>
+                </div>
+                <div class="col-lg-4 text-lg-end animate__animated animate__fadeInRight">
+                    <a href="#" class="btn btn-light btn-lg">اطلب الآن</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر المحدث -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="footer-brand">
+                        <img src="assets/images/logo.png" alt="شعار المطعم" height="40" class="mb-3">
+                        <p>نقدم أشهى الأطباق بأجود المكونات وأعلى معايير الجودة.</p>
+                    </div>
+                    <div class="social-links mt-4">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-snapchat-ghost"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h4 class="footer-heading">مواعيد العمل</h4>
+                    <ul class="footer-list">
+                        <li><i class="far fa-clock me-2"></i> الأحد - الخميس: 10 صباحًا - 11 مساءً</li>
+                        <li><i class="far fa-clock me-2"></i> الجمعة - السبت: 12 ظهرًا - 12 منتصف الليل</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h4 class="footer-heading">تواصل معنا</h4>
+                    <ul class="footer-list">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> الرياض، المملكة العربية السعودية</li>
+                        <li><i class="fas fa-phone me-2"></i> +966 12 345 6789</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@golden-elite.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="copyright">&copy; 2023 مطعم النخبة الذهبية. جميع الحقوق محفوظة.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-links">
+                        <a href="#" class="footer-link">شروط الاستخدام</a>
+                        <a href="#" class="footer-link">سياسة الخصوصية</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- نافذة السلة -->
+    <div class="modal fade" id="cartModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">سلة الطلب</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="cart-items"></div>
+                <div class="modal-footer">
+                    <input type="text" class="form-control me-2" id="order-note" placeholder="ملاحظات إضافية (اختياري)">
+                    <button class="btn btn-primary" onclick="confirmOrder()">إرسال عبر واتساب</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تأكيد -->
+    <div class="modal fade" id="confirmModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تأكيد الإرسال</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">هل أنت متأكد من إرسال الطلب عبر واتساب؟</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button class="btn btn-success" onclick="sendOrder()">نعم، أرسل</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+</body>
+
+</html>
