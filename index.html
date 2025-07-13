@@ -168,12 +168,12 @@
     </footer>
 
     <!-- نافذة السلة -->
-    <div class="modal fade" id="cartModal" tabindex="-1">
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" style="display: block;" aria-hidden="true" inert>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">سلة الطلب</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title" id="cartModalLabel">سلة الطلب</h5>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="cart-items"></div>
                 <div class="modal-footer">
@@ -183,6 +183,13 @@
             </div>
         </div>
     </div>
+
+    <!-- زر السلة العائم -->
+    <a href="#" class="floating-cart-btn animate__animated animate__fadeInUp" onclick="openCart()" aria-label="عرض سلة التسوق">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="floating-cart-badge" id="floating-cart-count">0</span>
+    </a>
+
 
     <!-- نافذة تأكيد -->
     <div class="modal fade" id="confirmModal" tabindex="-1">
