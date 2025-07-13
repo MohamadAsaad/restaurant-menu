@@ -25,7 +25,7 @@ function loadCartFromStorage() {
         const savedCart = localStorage.getItem('restaurantCart');
         if (savedCart) {
             cart = JSON.parse(savedCart);
-            updateCartCount();
+            updateCartCount(); // سيتم تحديث كلا العدادين هنا
         }
     } catch (e) {
         console.error("Error loading cart from storage:", e);
@@ -41,6 +41,7 @@ function saveCartToStorage() {
 function updateCartCount() {
     const count = cart.reduce((total, item) => total + item.quantity, 0);
     document.getElementById('cart-count').textContent = count;
+    document.getElementById('floating-cart-count').textContent = count; // تحديث العداد العائم
 }
 
 function setupCartButton() {
@@ -210,9 +211,27 @@ function addItemToCart(item) {
 
 function openCartModal() {
     const modal = new bootstrap.Modal('#cartModal');
-    renderCartItems();
+    const modalElement = document.getElementById('cartModal');
+
+    // إزالة التركيز من العنصر النشط
+    document.activeElement?.blur();
+
+    // السماح بالتفاعل مع عناصر المودال
+    modalElement.removeAttribute('inert');
+
     modal.show();
+
+    // إعادة التركيز بعد الإغلاق
+    modalElement.removeEventListener('hidden.bs.modal', handleModalClose);
+    modalElement.addEventListener('hidden.bs.modal', handleModalClose, { once: true });
+
+    renderCartItems();
 }
+
+
+
+// تأكد من أن زر السلة العائم يستدعي هذه الدالة
+document.querySelector('.floating-cart-btn').addEventListener('click', openCartModal);
 
 function renderCartItems() {
     const cartContainer = document.getElementById('cart-items');
@@ -364,6 +383,17 @@ function sendOrder() {
     bootstrap.Modal.getInstance('#cartModal').hide();
     bootstrap.Modal.getInstance('#confirmModal').hide();
 }
+function handleModalClose() {
+    const modalElement = document.getElementById('cartModal');
+
+    // منع التفاعل مع عناصر المودال بعد إغلاقه
+    modalElement.setAttribute('inert', '');
+
+    // إعادة التركيز إلى زر السلة العائم
+    const floatingBtn = document.querySelector('.floating-cart-btn');
+    if (floatingBtn) floatingBtn.focus();
+}
+
 
 // ============== أدوات مساعدة ==============
 function setupPageEffects() {
