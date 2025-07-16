@@ -8,6 +8,9 @@
     --text-light: #777;
     --bg-gradient: linear-gradient(135deg, #ff6b6b 0%, #4ecdc51a 100%);
 }
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     font-family: 'Tajawal', sans-serif;
